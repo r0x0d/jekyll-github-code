@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Jekyll
-  module GithubCard
-    class StyleGenerator < Jekyll::Generator
+  module GithubCode
+    class CodeStyleGenerator < Jekyll::Generator
       safe true
       priority :low
 
@@ -10,7 +10,7 @@ module Jekyll
         content = File.read(File.join(File.dirname(__FILE__), "..", "..", "assets", "css", "github-code.css"))
 
         # Create a static file for the CSS
-        site.static_files << StyleFile.new(site, content)
+        site.static_files << CodeStyleFile.new(site, content)
       end
     end
 
@@ -26,7 +26,7 @@ module Jekyll
       end
     end
 
-    class StyleFile < Jekyll::StaticFile
+    class CodeStyleFile < Jekyll::StaticFile
       def initialize(site, content)
         @site = site
         @content = content
