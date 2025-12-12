@@ -254,7 +254,8 @@ class CodeRendererTest < Minitest::Test
     html = renderer.render
 
     assert_includes html, 'github-code-copy'
-    assert_includes html, 'copyGitHubCode'
+    assert_includes html, 'type="button"'
+    assert_includes html, 'Copy code'
   end
 
   def test_includes_github_icon
