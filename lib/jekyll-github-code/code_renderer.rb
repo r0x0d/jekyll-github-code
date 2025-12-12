@@ -1,23 +1,12 @@
 # frozen_string_literal: true
 
 require 'cgi'
+require 'rouge'
 
 module Jekyll
   module GitHubCode
-    # Renders the code block with syntax highlighting
+    # Renders the code block with syntax highlighting using Rouge
     class CodeRenderer
-      LANGUAGE_MAP = {
-        'rb' => 'ruby',
-        'py' => 'python',
-        'js' => 'javascript',
-        'ts' => 'typescript',
-        'yml' => 'yaml',
-        'md' => 'markdown',
-        'sh' => 'bash',
-        'dockerfile' => 'dockerfile',
-        'containerfile' => 'dockerfile'
-      }.freeze
-
       def initialize(reference, code, options = {})
         @reference = reference
         @code = code
@@ -26,8 +15,7 @@ module Jekyll
 
       def render
         processed_code = process_line_range(@code)
-        escaped_code = CGI.escapeHTML(processed_code)
-        language = detect_language
+        highlighted_code = highlight_code(processed_code)
 
         <<~HTML
           <div class="github-code-block">
@@ -38,15 +26,9 @@ module Jekyll
                 </svg>
                 <a href="#{@reference.github_url}" target="_blank" rel="noopener noreferrer">#{@reference.filename}#{line_range_label}</a>
               </span>
-              <button class="github-code-copy btn" type="button" title="Copy code" aria-label="Copy code to clipboard" data-bs-toggle="none">
-                <svg viewBox="0 0 16 16" width="16" height="16">
-                  <path fill="currentColor" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/>
-                  <path fill="currentColor" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/>
-                </svg>
-              </button>
             </div>
-            <div class="github-code-content">
-              <pre><code class="language-#{language}">#{escaped_code}</code></pre>
+            <div class="github-code-content highlight">
+              <pre><code>#{highlighted_code}</code></pre>
             </div>
           </div>
         HTML
@@ -68,9 +50,33 @@ module Jekyll
         lines[start_idx..end_idx].join
       end
 
-      def detect_language
+      def highlight_code(code)
+        lexer = find_lexer
+        formatter = Rouge::Formatters::HTML.new
+        formatter.format(lexer.lex(code))
+      rescue StandardError
+        # Fallback to plain text if highlighting fails
+        CGI.escapeHTML(code)
+      end
+
+      def find_lexer
+        filename = @reference.filename
+
+        # Try to find lexer by filename (Rouge is smart about this)
+        lexer = Rouge::Lexer.find_fancy(filename)
+        return lexer if lexer
+
+        # Try by extension
         ext = @reference.extension.downcase
-        LANGUAGE_MAP[ext] || ext
+        lexer = Rouge::Lexer.find_fancy(ext)
+        return lexer if lexer
+
+        # Try guessing from the source content
+        lexer = Rouge::Lexer.guess(filename: filename, source: @code)
+        return lexer if lexer
+
+        # Fallback to plain text
+        Rouge::Lexers::PlainText.new
       end
 
       def line_range_label
@@ -85,4 +91,3 @@ module Jekyll
     end
   end
 end
-

@@ -50,6 +50,7 @@ Gem::Specification.new do |spec|
   # Runtime dependencies
   spec.add_dependency 'jekyll', '>= 3.7', '< 5.0'
   spec.add_dependency 'liquid', '>= 4.0'
+  spec.add_dependency 'rouge', '>= 3.0'
 
   # Development dependencies
   spec.add_development_dependency 'minitest', '~> 5.20'

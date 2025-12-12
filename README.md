@@ -9,8 +9,7 @@ A Jekyll plugin that lets you embed code from GitHub repositories directly in yo
 
 - **Embed full files** from any public GitHub repository
 - **Line range support** - show only specific lines (`#L5-L15`)
-- **Automatic syntax highlighting** based on file extension
-- **Copy button** for easy code copying
+- **Automatic syntax highlighting** using Rouge (Jekyll's built-in highlighter)
 - **Clickable filename** links directly to GitHub
 - **Dark/light mode support** compatible with Chirpy theme
 - **Graceful error handling** with informative messages
@@ -44,9 +43,9 @@ plugins:
   - jekyll-github-code
 ```
 
-### Include the Assets
+### Include the Styles
 
-The plugin automatically copies CSS and JS files to your site's `_site/assets/github-code/` directory during build.
+The plugin automatically copies the CSS file to your site's `_site/assets/github-code/` directory during build.
 
 Add the stylesheet to your layout's `<head>`:
 
@@ -54,19 +53,9 @@ Add the stylesheet to your layout's `<head>`:
 <link rel="stylesheet" href="/assets/github-code/css/github-code.css">
 ```
 
-Add the JavaScript before the closing `</body>` tag (required for the copy button):
-
-```html
-<script src="/assets/github-code/js/github-code.js"></script>
-```
-
 #### For Chirpy Theme
 
-If you're using the Chirpy theme, you can alternatively:
-
-1. Copy the CSS content to your custom styles
-2. Or add the link tag to `_includes/head.html`
-3. Add the script tag to `_layouts/default.html` before `</body>`
+If you're using the Chirpy theme, add the link tag to `_includes/head.html`.
 
 ## Usage
 
@@ -218,7 +207,6 @@ Open `demo.html` in your browser to see a preview of the rendered output with di
 4. Escapes HTML entities in the code
 5. Renders a styled code block with:
    - GitHub icon and clickable filename
-   - Copy button
    - Syntax-highlighted code
 
 ## Caching

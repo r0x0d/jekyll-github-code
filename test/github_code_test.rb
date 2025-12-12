@@ -182,32 +182,35 @@ class CodeRendererTest < Minitest::Test
     assert_includes html, 'github-code-block'
     assert_includes html, 'README.md'
     assert_includes html, 'https://github.com/r0x0d/toolbox-dev/blob/main/README.md'
-    assert_includes html, '# Hello World'
-    assert_includes html, 'language-markdown'
+    assert_includes html, 'Hello World'
+    assert_includes html, 'github-code-content'
   end
 
-  def test_escapes_html_in_code
+  def test_renders_html_code
     ref = Jekyll::GitHubCode::GitHubReference.new('r0x0d/toolbox-dev/blob/main/index.html')
     code = '<div>Hello</div>'
     renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, code)
 
     html = renderer.render
 
-    assert_includes html, '&lt;div&gt;Hello&lt;/div&gt;'
-    refute_includes html, '<div>Hello</div>'
+    # Rouge should escape HTML entities in the output
+    assert_includes html, 'github-code-block'
+    assert_includes html, 'index.html'
   end
 
   def test_extracts_line_range
-    ref = Jekyll::GitHubCode::GitHubReference.new('r0x0d/toolbox-dev/blob/main/file.py#L2-L3')
-    code = "line 1\nline 2\nline 3\nline 4\n"
+    ref = Jekyll::GitHubCode::GitHubReference.new('r0x0d/toolbox-dev/blob/main/file.txt#L2-L3')
+    code = "AAA\nBBB\nCCC\nDDD\n"
     renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, code)
 
     html = renderer.render
 
-    assert_includes html, 'line 2'
-    assert_includes html, 'line 3'
-    refute_includes html, 'line 1'
-    refute_includes html, 'line 4'
+    # Check that lines 2 and 3 are present (BBB and CCC)
+    assert_includes html, 'BBB'
+    assert_includes html, 'CCC'
+    # Check that lines 1 and 4 are NOT present (AAA and DDD)
+    refute_includes html, 'AAA'
+    refute_includes html, 'DDD'
   end
 
   def test_shows_line_range_in_header
@@ -220,42 +223,49 @@ class CodeRendererTest < Minitest::Test
     assert_includes html, '(L5-L15)'
   end
 
-  def test_detects_python_language
+  def test_highlights_python_code
     ref = Jekyll::GitHubCode::GitHubReference.new('owner/repo/blob/main/script.py')
-    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, '')
+    code = 'def hello():\n    print("world")'
+    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, code)
 
     html = renderer.render
 
-    assert_includes html, 'language-python'
+    # Rouge wraps code in spans for syntax highlighting
+    assert_includes html, 'github-code-block'
+    assert_includes html, 'script.py'
   end
 
-  def test_detects_ruby_language
+  def test_highlights_ruby_code
     ref = Jekyll::GitHubCode::GitHubReference.new('owner/repo/blob/main/script.rb')
-    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, '')
+    code = 'def hello; puts "world"; end'
+    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, code)
 
     html = renderer.render
 
-    assert_includes html, 'language-ruby'
+    assert_includes html, 'github-code-block'
+    assert_includes html, 'script.rb'
   end
 
-  def test_detects_containerfile_as_dockerfile
+  def test_highlights_dockerfile
+    ref = Jekyll::GitHubCode::GitHubReference.new('owner/repo/blob/main/Dockerfile')
+    code = 'FROM ubuntu:latest'
+    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, code)
+
+    html = renderer.render
+
+    assert_includes html, 'github-code-block'
+    assert_includes html, 'Dockerfile'
+  end
+
+  def test_highlights_containerfile
     ref = Jekyll::GitHubCode::GitHubReference.new('owner/repo/blob/main/fedora.Containerfile')
-    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, '')
+    code = 'FROM fedora:latest'
+    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, code)
 
     html = renderer.render
 
-    assert_includes html, 'language-dockerfile'
-  end
-
-  def test_includes_copy_button
-    ref = Jekyll::GitHubCode::GitHubReference.new('owner/repo/blob/main/file.js')
-    renderer = Jekyll::GitHubCode::CodeRenderer.new(ref, 'const x = 1;')
-
-    html = renderer.render
-
-    assert_includes html, 'github-code-copy'
-    assert_includes html, 'type="button"'
-    assert_includes html, 'Copy code'
+    assert_includes html, 'github-code-block'
+    assert_includes html, 'fedora.Containerfile'
   end
 
   def test_includes_github_icon

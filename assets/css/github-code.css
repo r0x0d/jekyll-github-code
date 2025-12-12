@@ -1,6 +1,7 @@
 /* Jekyll GitHub Code Styles
  * Supports both light and dark themes
  * For Chirpy theme: uses data-mode="light" for light, default for dark
+ * Syntax highlighting is provided by Rouge (Jekyll's built-in highlighter)
  */
 
 .github-code-block {
@@ -11,7 +12,6 @@
   --github-code-text-secondary: #8b949e;
   --github-code-link: #58a6ff;
   --github-code-link-hover: #79c0ff;
-  --github-code-copy-hover: #238636;
 
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   background-color: var(--github-code-bg);
@@ -70,7 +70,6 @@
 .github-code-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 10px 16px;
   background-color: var(--github-code-header-bg);
   border-bottom: 1px solid var(--github-code-border);
@@ -103,34 +102,6 @@
 .github-icon {
   flex-shrink: 0;
   color: var(--github-code-text-secondary);
-}
-
-/* Copy button */
-.github-code-copy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  background: transparent;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  color: var(--github-code-text-secondary);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.github-code-copy:hover {
-  background: rgba(128, 128, 128, 0.2);
-  color: var(--github-code-text);
-}
-
-.github-code-copy.copied {
-  color: var(--github-code-copy-hover);
-}
-
-.github-code-copy svg {
-  flex-shrink: 0;
 }
 
 /* Code content */
@@ -195,171 +166,6 @@
   }
 }
 
-/* Syntax highlighting tokens (GitHub-inspired) - Dark theme */
-.github-code-content .token.comment,
-.github-code-content .token.prolog,
-.github-code-content .token.doctype,
-.github-code-content .token.cdata {
-  color: #8b949e;
-}
-
-.github-code-content .token.punctuation {
-  color: #c9d1d9;
-}
-
-.github-code-content .token.property,
-.github-code-content .token.tag,
-.github-code-content .token.boolean,
-.github-code-content .token.number,
-.github-code-content .token.constant,
-.github-code-content .token.symbol,
-.github-code-content .token.deleted {
-  color: #79c0ff;
-}
-
-.github-code-content .token.selector,
-.github-code-content .token.attr-name,
-.github-code-content .token.string,
-.github-code-content .token.char,
-.github-code-content .token.builtin,
-.github-code-content .token.inserted {
-  color: #a5d6ff;
-}
-
-.github-code-content .token.operator,
-.github-code-content .token.entity,
-.github-code-content .token.url,
-.github-code-content .language-css .token.string,
-.github-code-content .style .token.string {
-  color: #d2a8ff;
-}
-
-.github-code-content .token.atrule,
-.github-code-content .token.attr-value,
-.github-code-content .token.keyword {
-  color: #ff7b72;
-}
-
-.github-code-content .token.function,
-.github-code-content .token.class-name {
-  color: #d2a8ff;
-}
-
-.github-code-content .token.regex,
-.github-code-content .token.important,
-.github-code-content .token.variable {
-  color: #ffa657;
-}
-
-/* Syntax highlighting - Light theme */
-[data-mode="light"] .github-code-content .token.comment,
-[data-mode="light"] .github-code-content .token.prolog,
-[data-mode="light"] .github-code-content .token.doctype,
-[data-mode="light"] .github-code-content .token.cdata,
-.light .github-code-content .token.comment,
-.light .github-code-content .token.prolog,
-.light .github-code-content .token.doctype,
-.light .github-code-content .token.cdata,
-[data-theme="light"] .github-code-content .token.comment,
-[data-theme="light"] .github-code-content .token.prolog,
-[data-theme="light"] .github-code-content .token.doctype,
-[data-theme="light"] .github-code-content .token.cdata {
-  color: #6e7781;
-}
-
-[data-mode="light"] .github-code-content .token.punctuation,
-.light .github-code-content .token.punctuation,
-[data-theme="light"] .github-code-content .token.punctuation {
-  color: #24292f;
-}
-
-[data-mode="light"] .github-code-content .token.property,
-[data-mode="light"] .github-code-content .token.tag,
-[data-mode="light"] .github-code-content .token.boolean,
-[data-mode="light"] .github-code-content .token.number,
-[data-mode="light"] .github-code-content .token.constant,
-[data-mode="light"] .github-code-content .token.symbol,
-[data-mode="light"] .github-code-content .token.deleted,
-.light .github-code-content .token.property,
-.light .github-code-content .token.tag,
-.light .github-code-content .token.boolean,
-.light .github-code-content .token.number,
-.light .github-code-content .token.constant,
-.light .github-code-content .token.symbol,
-.light .github-code-content .token.deleted,
-[data-theme="light"] .github-code-content .token.property,
-[data-theme="light"] .github-code-content .token.tag,
-[data-theme="light"] .github-code-content .token.boolean,
-[data-theme="light"] .github-code-content .token.number,
-[data-theme="light"] .github-code-content .token.constant,
-[data-theme="light"] .github-code-content .token.symbol,
-[data-theme="light"] .github-code-content .token.deleted {
-  color: #0550ae;
-}
-
-[data-mode="light"] .github-code-content .token.selector,
-[data-mode="light"] .github-code-content .token.attr-name,
-[data-mode="light"] .github-code-content .token.string,
-[data-mode="light"] .github-code-content .token.char,
-[data-mode="light"] .github-code-content .token.builtin,
-[data-mode="light"] .github-code-content .token.inserted,
-.light .github-code-content .token.selector,
-.light .github-code-content .token.attr-name,
-.light .github-code-content .token.string,
-.light .github-code-content .token.char,
-.light .github-code-content .token.builtin,
-.light .github-code-content .token.inserted,
-[data-theme="light"] .github-code-content .token.selector,
-[data-theme="light"] .github-code-content .token.attr-name,
-[data-theme="light"] .github-code-content .token.string,
-[data-theme="light"] .github-code-content .token.char,
-[data-theme="light"] .github-code-content .token.builtin,
-[data-theme="light"] .github-code-content .token.inserted {
-  color: #0a3069;
-}
-
-[data-mode="light"] .github-code-content .token.atrule,
-[data-mode="light"] .github-code-content .token.attr-value,
-[data-mode="light"] .github-code-content .token.keyword,
-.light .github-code-content .token.atrule,
-.light .github-code-content .token.attr-value,
-.light .github-code-content .token.keyword,
-[data-theme="light"] .github-code-content .token.atrule,
-[data-theme="light"] .github-code-content .token.attr-value,
-[data-theme="light"] .github-code-content .token.keyword {
-  color: #cf222e;
-}
-
-[data-mode="light"] .github-code-content .token.function,
-[data-mode="light"] .github-code-content .token.class-name,
-[data-mode="light"] .github-code-content .token.operator,
-[data-mode="light"] .github-code-content .token.entity,
-[data-mode="light"] .github-code-content .token.url,
-.light .github-code-content .token.function,
-.light .github-code-content .token.class-name,
-.light .github-code-content .token.operator,
-.light .github-code-content .token.entity,
-.light .github-code-content .token.url,
-[data-theme="light"] .github-code-content .token.function,
-[data-theme="light"] .github-code-content .token.class-name,
-[data-theme="light"] .github-code-content .token.operator,
-[data-theme="light"] .github-code-content .token.entity,
-[data-theme="light"] .github-code-content .token.url {
-  color: #8250df;
-}
-
-[data-mode="light"] .github-code-content .token.regex,
-[data-mode="light"] .github-code-content .token.important,
-[data-mode="light"] .github-code-content .token.variable,
-.light .github-code-content .token.regex,
-.light .github-code-content .token.important,
-.light .github-code-content .token.variable,
-[data-theme="light"] .github-code-content .token.regex,
-[data-theme="light"] .github-code-content .token.important,
-[data-theme="light"] .github-code-content .token.variable {
-  color: #953800;
-}
-
 /* Responsive */
 @media (max-width: 520px) {
   .github-code-header {
@@ -375,4 +181,3 @@
     font-size: 12px;
   }
 }
-

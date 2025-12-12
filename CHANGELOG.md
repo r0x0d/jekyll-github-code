@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2025-12-12
+
+### Added
+- Rouge syntax highlighting (Jekyll's built-in highlighter)
+- Automatic language detection from filename
+
+### Removed
+- Copy-to-clipboard button (simplified solution)
+- JavaScript file (no longer needed)
+- Manual language mapping (Rouge handles this automatically)
+
+### Changed
+- Automatic asset generation now only copies CSS file
+- Syntax highlighting is now done at build time using Rouge
+
 ## [0.2.2] - 2025-12-12
 
 ### Fixed
