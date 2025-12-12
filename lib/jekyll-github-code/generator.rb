@@ -1,72 +1,80 @@
 # frozen_string_literal: true
 
 module Jekyll
-  module GitHubCode
-    # Generator that copies the CSS and JS assets to the site
-    class Generator < Jekyll::Generator
+  module GithubCard
+    class StyleGenerator < Jekyll::Generator
       safe true
-      priority :lowest
+      priority :low
 
       def generate(site)
-        # Find the gem's root directory (where assets/ is located)
-        gem_root = File.expand_path('../../..', __dir__)
-        assets_source = File.join(gem_root, 'assets')
+        content = File.read(File.join(File.dirname(__FILE__), "..", "..", "assets", "css", "github-code.css"))
 
-        # Copy CSS file
-        css_source = File.join(assets_source, 'css', 'github-code.css')
-        if File.exist?(css_source)
-          site.static_files << AssetFile.new(
-            site,
-            assets_source,
-            'css',
-            'github-code.css'
-          )
-        end
-
-        # Copy JS file
-        js_source = File.join(assets_source, 'js', 'github-code.js')
-        if File.exist?(js_source)
-          site.static_files << AssetFile.new(
-            site,
-            assets_source,
-            'js',
-            'github-code.js'
-          )
-        end
+        # Create a static file for the CSS
+        site.static_files << StyleFile.new(site, content)
       end
     end
 
-    # Custom static file class for gem assets
-    class AssetFile < Jekyll::StaticFile
-      def initialize(site, base, dir, name)
+    class JavaScriptGenerator < Jekyll::Generator
+      safe true
+      priority :low
+
+      def generate(site)
+        content = File.read(File.join(File.dirname(__FILE__), "..", "..", "assets", "js", "github-code.js"))
+
+        # Create a static file for the CSS
+        site.static_files << JavaScriptFile.new(site, content)
+      end
+    end
+
+    class StyleFile < Jekyll::StaticFile
+      def initialize(site, content)
         @site = site
-        @base = base
-        @dir = dir
-        @name = name
-        @relative_path = File.join(dir, name)
-        @extname = File.extname(name)
-        @collection = nil
-      end
-
-      def path
-        File.join(@base, @dir, @name)
-      end
-
-      def destination(dest)
-        File.join(dest, 'assets', 'github-code', @dir, @name)
+        @content = content
+        @relative_path = "/assets/css/github-code.css"
+        @extname = ".css"
+        @name = "github-code.css"
+        @dir = "/assets/css"
       end
 
       def write(dest)
-        dest_path = destination(dest)
-        return false unless File.exist?(path)
-
+        dest_path = File.join(dest, @relative_path)
         FileUtils.mkdir_p(File.dirname(dest_path))
-        FileUtils.cp(path, dest_path)
+        File.write(dest_path, @content)
         true
       end
 
-      def modified?
+      def path
+        @relative_path
+      end
+
+      def relative_path
+        @relative_path
+      end
+    end
+
+    class JavaScriptFile < Jekyll::StaticFile
+      def initialize(site, content)
+        @site = site
+        @content = content
+        @relative_path = "/assets/js/github-code.js"
+        @extname = ".js"
+        @name = "github-code.js"
+        @dir = "/assets/js"
+      end
+
+      def write(dest)
+        dest_path = File.join(dest, @relative_path)
+        FileUtils.mkdir_p(File.dirname(dest_path))
+        File.write(dest_path, @content)
         true
+      end
+
+      def path
+        @relative_path
+      end
+
+      def relative_path
+        @relative_path
       end
     end
   end
