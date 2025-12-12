@@ -171,16 +171,12 @@
   padding: 16px;
   margin: 16px 0;
   font-size: 14px;
+  color: var(--github-code-error-border);
 }
 
 .github-code-error strong {
   display: block;
   margin-bottom: 4px;
-  color: var(--github-code-error-border);
-}
-
-.github-code-error {
-  color: var(--github-code-error-border);
 }
 
 /* Light theme error state */
@@ -379,3 +375,4 @@
     font-size: 12px;
   }
 }
+

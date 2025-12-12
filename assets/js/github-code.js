@@ -27,4 +27,3 @@ function copyGitHubCode(button) {
     console.error('Failed to copy code:', err);
   });
 }
-

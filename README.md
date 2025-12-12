@@ -44,25 +44,29 @@ plugins:
   - jekyll-github-code
 ```
 
-### Add the Styles
+### Include the Assets
 
-Copy the SCSS file to your `_sass` directory or add these styles to your main stylesheet.
+The plugin automatically copies CSS and JS files to your site's `_site/assets/github-code/` directory during build.
 
-You can find the styles in `assets/css/github-code.scss` in this repository.
-
-For Chirpy theme, add to `assets/css/jekyll-theme-chirpy.scss`:
-
-```scss
-@import "github-code";
-```
-
-### Add the JavaScript (optional, for copy button)
-
-Add the contents of `assets/js/github-code.js` to your site's JavaScript, or include it directly:
+Add the stylesheet to your layout's `<head>`:
 
 ```html
-<script src="/assets/js/github-code.js"></script>
+<link rel="stylesheet" href="/assets/github-code/css/github-code.css">
 ```
+
+Add the JavaScript before the closing `</body>` tag (required for the copy button):
+
+```html
+<script src="/assets/github-code/js/github-code.js"></script>
+```
+
+#### For Chirpy Theme
+
+If you're using the Chirpy theme, you can alternatively:
+
+1. Copy the CSS content to your custom styles
+2. Or add the link tag to `_includes/head.html`
+3. Add the script tag to `_layouts/default.html` before `</body>`
 
 ## Usage
 
