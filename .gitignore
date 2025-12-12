@@ -1,0 +1,37 @@
+# Gem build artifacts
+*.gem
+pkg/
+
+# Bundler
+vendor/bundle/
+Gemfile.lock
+
+# Ruby version managers
+.ruby-version
+.ruby-gemset
+.rvmrc
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+coverage/
+.minitest/
+
+# Jekyll build
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Temporary files
+tmp/
+log/

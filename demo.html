@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jekyll GitHub Code - Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --border: #30363d;
+      --success: #238636;
+      --error: #f85149;
+    }
+
+    [data-mode="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #f0f3f6;
+      --text-primary: #1f2328;
+      --text-secondary: #656d76;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --border: #d0d7de;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo svg {
+      width: 48px;
+      height: 48px;
+      color: var(--text-primary);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), #a371f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-top: 0.5rem;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent);
+    }
+
+    .example-section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.5rem;
+      background: linear-gradient(to bottom, var(--accent), #a371f7);
+      border-radius: 2px;
+    }
+
+    .usage-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.875rem;
+      color: var(--accent);
+      overflow-x: auto;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* GitHub Code Block Styles - Inline for demo */
+    .github-code-block {
+      --github-code-bg: #0d1117;
+      --github-code-header-bg: #161b22;
+      --github-code-border: #30363d;
+      --github-code-text: #e6edf3;
+      --github-code-text-secondary: #8b949e;
+      --github-code-link: #58a6ff;
+      --github-code-link-hover: #79c0ff;
+      --github-code-copy-hover: #238636;
+
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      background-color: var(--github-code-bg);
+      border: 1px solid var(--github-code-border);
+      border-radius: 8px;
+      margin: 16px 0;
+      overflow: hidden;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .github-code-block:hover {
+      border-color: var(--github-code-link);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Light theme support */
+    [data-mode="light"] .github-code-block,
+    .light .github-code-block,
+    [data-theme="light"] .github-code-block,
+    .github-code-block.light {
+      --github-code-bg: #ffffff;
+      --github-code-header-bg: #f6f8fa;
+      --github-code-border: #d0d7de;
+      --github-code-text: #1f2328;
+      --github-code-text-secondary: #656d76;
+      --github-code-link: #0969da;
+      --github-code-link-hover: #0550ae;
+    }
+
+    [data-mode="light"] .github-code-block:hover,
+    .light .github-code-block:hover,
+    [data-theme="light"] .github-code-block:hover,
+    .github-code-block.light:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .github-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background-color: var(--github-code-header-bg);
+      border-bottom: 1px solid var(--github-code-border);
+      font-size: 14px;
+    }
+
+    .github-code-filename {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--github-code-text);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .github-code-filename a {
+      color: var(--github-code-link);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .github-code-filename a:hover {
+      color: var(--github-code-link-hover);
+      text-decoration: underline;
+    }
+
+    .github-icon {
+      flex-shrink: 0;
+      color: var(--github-code-text-secondary);
+    }
+
+    .github-code-copy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--github-code-text-secondary);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .github-code-copy:hover {
+      background: rgba(128, 128, 128, 0.2);
+      color: var(--github-code-text);
+    }
+
+    .github-code-copy.copied {
+      color: var(--github-code-copy-hover);
+    }
+
+    .github-code-content {
+      overflow-x: auto;
+    }
+
+    .github-code-content pre {
+      margin: 0;
+      padding: 16px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+    }
+
+    .github-code-content code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--github-code-text);
+      background: transparent;
+      padding: 0;
+      border: none;
+      white-space: pre;
+      word-wrap: normal;
+      overflow-wrap: normal;
+    }
+
+    /* Error state */
+    .github-code-error {
+      --github-code-error-bg: #3d1f28;
+      --github-code-error-border: #f85149;
+
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background-color: var(--github-code-error-bg);
+      border: 1px solid var(--github-code-error-border);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--github-code-error-border);
+    }
+
+    .github-code-error strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    [data-mode="light"] .github-code-error,
+    .light .github-code-error,
+    [data-theme="light"] .github-code-error {
+      --github-code-error-bg: #ffebe9;
+      --github-code-error-border: #cf222e;
+    }
+
+    /* Syntax highlighting - Dark theme */
+    .token-keyword { color: #ff7b72; }
+    .token-string { color: #a5d6ff; }
+    .token-comment { color: #8b949e; }
+    .token-function { color: #d2a8ff; }
+    .token-number { color: #79c0ff; }
+    .token-operator { color: #c9d1d9; }
+
+    /* Syntax highlighting - Light theme */
+    [data-mode="light"] .token-keyword { color: #cf222e; }
+    [data-mode="light"] .token-string { color: #0a3069; }
+    [data-mode="light"] .token-comment { color: #6e7781; }
+    [data-mode="light"] .token-function { color: #8250df; }
+    [data-mode="light"] .token-number { color: #0550ae; }
+    [data-mode="light"] .token-operator { color: #24292f; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .feature h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .feature p {
+      font-size: 0.875rem;
+      margin: 0;
+    }
+
+    @media (max-width: 520px) {
+      .github-code-header {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .github-code-content pre {
+        padding: 12px;
+      }
+
+      .github-code-content code {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <h1>Jekyll GitHub Code</h1>
+      </div>
+      <p class="subtitle">Embed GitHub code snippets beautifully in your Jekyll blog</p>
+    </header>
+
+    <section class="features">
+      <div class="feature">
+        <h3>📄 Full Files</h3>
+        <p>Embed entire files from any public GitHub repository</p>
+      </div>
+      <div class="feature">
+        <h3>📍 Line Ranges</h3>
+        <p>Specify line numbers to show specific code sections</p>
+      </div>
+      <div class="feature">
+        <h3>🎨 Syntax Highlighting</h3>
+        <p>Automatic language detection with beautiful highlighting</p>
+      </div>
+      <div class="feature">
+        <h3>🔗 Direct Links</h3>
+        <p>Click the filename to view the source on GitHub</p>
+      </div>
+    </section>
+
+    <section class="example-section">
+      <h2>Basic Usage - Full File</h2>
+      <p>Embed an entire file from GitHub:</p>
+      <div class="usage-block">
+        {% github_code r0x0d/toolbox-dev/blob/main/toolbox/environment/fedora-packaging.Containerfile %}
+      </div>
+      
+      <!-- Simulated output -->
+      <div class="github-code-block">
+        <div class="github-code-header">
+          <span class="github-code-filename">
+            <svg class="github-icon" viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <a href="https://github.com/r0x0d/toolbox-dev/blob/main/toolbox/environment/fedora-packaging.Containerfile" target="_blank" rel="noopener noreferrer">fedora-packaging.Containerfile</a>
+          </span>
+          <button class="github-code-copy" onclick="copyGitHubCode(this)" title="Copy code">
+            <svg viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/>
+              <path fill="currentColor" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="github-code-content">
+          <pre><code><span class="token-comment"># Fedora Packaging Development Container</span>
+<span class="token-keyword">FROM</span> registry.fedoraproject.org/fedora:latest
+
+<span class="token-keyword">LABEL</span> name=<span class="token-string">"fedora-packaging"</span> \
+      summary=<span class="token-string">"Fedora packaging development environment"</span> \
+      maintainer=<span class="token-string">"r0x0d"</span>
+
+<span class="token-keyword">RUN</span> dnf install -y \
+    fedora-packager \
+    fedora-review \
+    rpm-build \
+    rpmdevtools \
+    mock \
+    && dnf clean all
+
+<span class="token-keyword">RUN</span> rpmdev-setuptree
+
+<span class="token-keyword">CMD</span> [<span class="token-string">"/bin/bash"</span>]</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="example-section">
+      <h2>Line Range - Specific Lines</h2>
+      <p>Embed only specific lines from a file:</p>
+      <div class="usage-block">
+        {% github_code r0x0d/toolbox-dev/blob/main/toolbox/environment/fedora-packaging.Containerfile#L5-L15 %}
+      </div>
+      
+      <!-- Simulated output with line range -->
+      <div class="github-code-block">
+        <div class="github-code-header">
+          <span class="github-code-filename">
+            <svg class="github-icon" viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <a href="https://github.com/r0x0d/toolbox-dev/blob/main/toolbox/environment/fedora-packaging.Containerfile#L5-L15" target="_blank" rel="noopener noreferrer">fedora-packaging.Containerfile (L5-L15)</a>
+          </span>
+          <button class="github-code-copy" onclick="copyGitHubCode(this)" title="Copy code">
+            <svg viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/>
+              <path fill="currentColor" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="github-code-content">
+          <pre><code><span class="token-keyword">LABEL</span> name=<span class="token-string">"fedora-packaging"</span> \
+      summary=<span class="token-string">"Fedora packaging development environment"</span> \
+      maintainer=<span class="token-string">"r0x0d"</span>
+
+<span class="token-keyword">RUN</span> dnf install -y \
+    fedora-packager \
+    fedora-review \
+    rpm-build \
+    rpmdevtools \
+    mock \
+    && dnf clean all</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="example-section">
+      <h2>Python Example</h2>
+      <div class="usage-block">
+        {% github_code octocat/Hello-World/blob/master/app.py %}
+      </div>
+      
+      <div class="github-code-block">
+        <div class="github-code-header">
+          <span class="github-code-filename">
+            <svg class="github-icon" viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <a href="https://github.com/octocat/Hello-World/blob/master/app.py" target="_blank" rel="noopener noreferrer">app.py</a>
+          </span>
+          <button class="github-code-copy" onclick="copyGitHubCode(this)" title="Copy code">
+            <svg viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/>
+              <path fill="currentColor" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="github-code-content">
+          <pre><code><span class="token-comment">#!/usr/bin/env python3</span>
+<span class="token-string">"""Hello World Application"""</span>
+
+<span class="token-keyword">def</span> <span class="token-function">greet</span>(name: str) -> str:
+    <span class="token-string">"""Return a greeting message."""</span>
+    <span class="token-keyword">return</span> <span class="token-string">f"Hello, {name}!"</span>
+
+<span class="token-keyword">def</span> <span class="token-function">main</span>():
+    message = greet(<span class="token-string">"World"</span>)
+    print(message)
+
+<span class="token-keyword">if</span> __name__ == <span class="token-string">"__main__"</span>:
+    main()</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="example-section">
+      <h2>Error State</h2>
+      <p>When an invalid reference is provided, a helpful error is shown:</p>
+      <div class="usage-block">
+        {% github_code invalid-reference %}
+      </div>
+      
+      <div class="github-code-error">
+        <strong>GitHub Code Error:</strong> Invalid GitHub reference: invalid-reference
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Created for Jekyll blogs with 
+        <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener noreferrer">Chirpy theme</a>
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+        Open <code>demo.html</code> directly in your browser to preview • Toggle theme with the button in the top right
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentMode = html.getAttribute('data-mode');
+      html.setAttribute('data-mode', currentMode === 'dark' ? 'light' : 'dark');
+    }
+
+    function copyGitHubCode(button) {
+      const codeBlock = button.closest('.github-code-block');
+      const codeElement = codeBlock.querySelector('code');
+      const text = codeElement.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        button.classList.add('copied');
+        button.innerHTML = `
+          <svg viewBox="0 0 16 16" width="16" height="16">
+            <path fill="currentColor" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+          </svg>
+        `;
+        
+        setTimeout(() => {
+          button.classList.remove('copied');
+          button.innerHTML = `
+            <svg viewBox="0 0 16 16" width="16" height="16">
+              <path fill="currentColor" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/>
+              <path fill="currentColor" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/>
+            </svg>
+          `;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy code:', err);
+      });
+    }
+  </script>
+</body>
+</html>
