@@ -45,12 +45,12 @@ plugins:
 
 ### Include the Styles
 
-The plugin automatically copies the CSS file to your site's `_site/assets/github-code/` directory during build.
+The plugin automatically copies the CSS file to your site's `_site/assets/css/` directory during build.
 
 Add the stylesheet to your layout's `<head>`:
 
 ```html
-<link rel="stylesheet" href="/assets/github-code/css/github-code.css">
+<link rel="stylesheet" href="/assets/css/github-code.css">
 ```
 
 #### For Chirpy Theme

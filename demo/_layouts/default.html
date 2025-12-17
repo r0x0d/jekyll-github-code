@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | default: site.title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/github-code.css' | relative_url }}">
+  <style>
+    :root {
+      --bg-gradient-start: #0f0f23;
+      --bg-gradient-end: #1a1a2e;
+      --surface: #16213e;
+      --surface-elevated: #1f3460;
+      --text-primary: #e8e8e8;
+      --text-secondary: #a0a0a0;
+      --accent-primary: #00d9ff;
+      --accent-secondary: #ff6b9d;
+      --accent-tertiary: #c792ea;
+      --border: #2d4a7c;
+      --shadow: rgba(0, 217, 255, 0.1);
+    }
+
+    [data-mode="light"] {
+      --bg-gradient-start: #f5f7fa;
+      --bg-gradient-end: #e4e9f2;
+      --surface: #ffffff;
+      --surface-elevated: #f8fafc;
+      --text-primary: #1a1a2e;
+      --text-secondary: #5a6370;
+      --accent-primary: #0077b6;
+      --accent-secondary: #e63946;
+      --accent-tertiary: #7c3aed;
+      --border: #d1d9e6;
+      --shadow: rgba(0, 119, 182, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      color: var(--accent-primary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg) scale(1.1);
+      border-color: var(--accent-primary);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 0;
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo svg {
+      width: 56px;
+      height: 56px;
+      fill: var(--accent-primary);
+      filter: drop-shadow(0 0 20px var(--accent-primary));
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      font-weight: 300;
+      margin-top: 0.75rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      color: var(--accent-primary);
+      margin-top: 1.5rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    main {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 60px var(--shadow);
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 1.5rem;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+      border-radius: 2px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .usage-code {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: var(--accent-primary);
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: var(--surface-elevated);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--accent-secondary);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </button>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg viewBox="0 0 16 16">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <h1>{{ site.title }}</h1>
+      </div>
+      <p class="subtitle">{{ site.description }}</p>
+      <span class="badge">{% raw %}{% github_code ... %}{% endraw %}</span>
+    </header>
+
+    <main>
+      {{ content }}
+    </main>
+
+    <footer>
+      <p>Built with <a href="https://jekyllrb.com">Jekyll</a> and <a href="https://github.com/r0x0d/jekyll-github-code">jekyll-github-code</a></p>
+    </footer>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-mode');
+      html.setAttribute('data-mode', current === 'dark' ? 'light' : 'dark');
+      localStorage.setItem('theme', html.getAttribute('data-mode'));
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-mode', savedTheme);
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      document.documentElement.setAttribute('data-mode', 'light');
+    }
+  </script>
+</body>
+</html>
+

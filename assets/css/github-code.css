@@ -181,3 +181,242 @@
     font-size: 12px;
   }
 }
+
+/* ============================================
+   Rouge Syntax Highlighting - GitHub Dark Theme
+   ============================================ */
+
+/* Comments */
+.github-code-block .c,
+.github-code-block .c1,
+.github-code-block .cm,
+.github-code-block .cs,
+.github-code-block .cp { color: #8b949e; font-style: italic; }
+
+/* Keywords */
+.github-code-block .k,
+.github-code-block .kc,
+.github-code-block .kd,
+.github-code-block .kn,
+.github-code-block .kp,
+.github-code-block .kr,
+.github-code-block .kt { color: #ff7b72; }
+
+/* Strings */
+.github-code-block .s,
+.github-code-block .s1,
+.github-code-block .s2,
+.github-code-block .sb,
+.github-code-block .sc,
+.github-code-block .sd,
+.github-code-block .se,
+.github-code-block .sh,
+.github-code-block .si,
+.github-code-block .sx,
+.github-code-block .sr { color: #a5d6ff; }
+
+/* Numbers */
+.github-code-block .m,
+.github-code-block .mf,
+.github-code-block .mh,
+.github-code-block .mi,
+.github-code-block .mo,
+.github-code-block .il { color: #79c0ff; }
+
+/* Names/Identifiers */
+.github-code-block .n { color: #e6edf3; }
+.github-code-block .na { color: #79c0ff; }
+.github-code-block .nb { color: #ffa657; }
+.github-code-block .nc { color: #ffa657; }
+.github-code-block .nd { color: #d2a8ff; }
+.github-code-block .ne { color: #ffa657; }
+.github-code-block .nf { color: #d2a8ff; }
+.github-code-block .ni { color: #e6edf3; }
+.github-code-block .nl { color: #79c0ff; }
+.github-code-block .nn { color: #ffa657; }
+.github-code-block .no { color: #79c0ff; }
+.github-code-block .nt { color: #7ee787; }
+.github-code-block .nv { color: #79c0ff; }
+
+/* Operators */
+.github-code-block .o,
+.github-code-block .ow { color: #ff7b72; }
+
+/* Punctuation */
+.github-code-block .p { color: #e6edf3; }
+
+/* Generic */
+.github-code-block .ge { font-style: italic; }
+.github-code-block .gs { font-weight: bold; }
+.github-code-block .gd { color: #ffa198; background-color: #490202; }
+.github-code-block .gi { color: #7ee787; background-color: #04260f; }
+
+/* Variables */
+.github-code-block .vi,
+.github-code-block .vc,
+.github-code-block .vg { color: #79c0ff; }
+
+/* ============================================
+   Rouge Syntax Highlighting - Light Theme
+   ============================================ */
+
+[data-mode="light"] .github-code-block .c,
+[data-mode="light"] .github-code-block .c1,
+[data-mode="light"] .github-code-block .cm,
+[data-mode="light"] .github-code-block .cs,
+[data-mode="light"] .github-code-block .cp,
+.light .github-code-block .c,
+.light .github-code-block .c1,
+.light .github-code-block .cm,
+.light .github-code-block .cs,
+.light .github-code-block .cp,
+[data-theme="light"] .github-code-block .c,
+[data-theme="light"] .github-code-block .c1,
+[data-theme="light"] .github-code-block .cm,
+[data-theme="light"] .github-code-block .cs,
+[data-theme="light"] .github-code-block .cp { color: #6e7781; }
+
+[data-mode="light"] .github-code-block .k,
+[data-mode="light"] .github-code-block .kc,
+[data-mode="light"] .github-code-block .kd,
+[data-mode="light"] .github-code-block .kn,
+[data-mode="light"] .github-code-block .kp,
+[data-mode="light"] .github-code-block .kr,
+[data-mode="light"] .github-code-block .kt,
+.light .github-code-block .k,
+.light .github-code-block .kc,
+.light .github-code-block .kd,
+.light .github-code-block .kn,
+.light .github-code-block .kp,
+.light .github-code-block .kr,
+.light .github-code-block .kt,
+[data-theme="light"] .github-code-block .k,
+[data-theme="light"] .github-code-block .kc,
+[data-theme="light"] .github-code-block .kd,
+[data-theme="light"] .github-code-block .kn,
+[data-theme="light"] .github-code-block .kp,
+[data-theme="light"] .github-code-block .kr,
+[data-theme="light"] .github-code-block .kt { color: #cf222e; }
+
+[data-mode="light"] .github-code-block .s,
+[data-mode="light"] .github-code-block .s1,
+[data-mode="light"] .github-code-block .s2,
+[data-mode="light"] .github-code-block .sb,
+[data-mode="light"] .github-code-block .sc,
+[data-mode="light"] .github-code-block .sd,
+[data-mode="light"] .github-code-block .se,
+[data-mode="light"] .github-code-block .sh,
+[data-mode="light"] .github-code-block .si,
+[data-mode="light"] .github-code-block .sx,
+[data-mode="light"] .github-code-block .sr,
+.light .github-code-block .s,
+.light .github-code-block .s1,
+.light .github-code-block .s2,
+.light .github-code-block .sb,
+.light .github-code-block .sc,
+.light .github-code-block .sd,
+.light .github-code-block .se,
+.light .github-code-block .sh,
+.light .github-code-block .si,
+.light .github-code-block .sx,
+.light .github-code-block .sr,
+[data-theme="light"] .github-code-block .s,
+[data-theme="light"] .github-code-block .s1,
+[data-theme="light"] .github-code-block .s2,
+[data-theme="light"] .github-code-block .sb,
+[data-theme="light"] .github-code-block .sc,
+[data-theme="light"] .github-code-block .sd,
+[data-theme="light"] .github-code-block .se,
+[data-theme="light"] .github-code-block .sh,
+[data-theme="light"] .github-code-block .si,
+[data-theme="light"] .github-code-block .sx,
+[data-theme="light"] .github-code-block .sr { color: #0a3069; }
+
+[data-mode="light"] .github-code-block .m,
+[data-mode="light"] .github-code-block .mf,
+[data-mode="light"] .github-code-block .mh,
+[data-mode="light"] .github-code-block .mi,
+[data-mode="light"] .github-code-block .mo,
+[data-mode="light"] .github-code-block .il,
+.light .github-code-block .m,
+.light .github-code-block .mf,
+.light .github-code-block .mh,
+.light .github-code-block .mi,
+.light .github-code-block .mo,
+.light .github-code-block .il,
+[data-theme="light"] .github-code-block .m,
+[data-theme="light"] .github-code-block .mf,
+[data-theme="light"] .github-code-block .mh,
+[data-theme="light"] .github-code-block .mi,
+[data-theme="light"] .github-code-block .mo,
+[data-theme="light"] .github-code-block .il { color: #0550ae; }
+
+[data-mode="light"] .github-code-block .n,
+.light .github-code-block .n,
+[data-theme="light"] .github-code-block .n { color: #1f2328; }
+
+[data-mode="light"] .github-code-block .na,
+.light .github-code-block .na,
+[data-theme="light"] .github-code-block .na { color: #0550ae; }
+
+[data-mode="light"] .github-code-block .nb,
+[data-mode="light"] .github-code-block .nc,
+[data-mode="light"] .github-code-block .ne,
+[data-mode="light"] .github-code-block .nn,
+.light .github-code-block .nb,
+.light .github-code-block .nc,
+.light .github-code-block .ne,
+.light .github-code-block .nn,
+[data-theme="light"] .github-code-block .nb,
+[data-theme="light"] .github-code-block .nc,
+[data-theme="light"] .github-code-block .ne,
+[data-theme="light"] .github-code-block .nn { color: #953800; }
+
+[data-mode="light"] .github-code-block .nd,
+[data-mode="light"] .github-code-block .nf,
+.light .github-code-block .nd,
+.light .github-code-block .nf,
+[data-theme="light"] .github-code-block .nd,
+[data-theme="light"] .github-code-block .nf { color: #8250df; }
+
+[data-mode="light"] .github-code-block .nt,
+.light .github-code-block .nt,
+[data-theme="light"] .github-code-block .nt { color: #116329; }
+
+[data-mode="light"] .github-code-block .nv,
+[data-mode="light"] .github-code-block .nl,
+[data-mode="light"] .github-code-block .no,
+[data-mode="light"] .github-code-block .vi,
+[data-mode="light"] .github-code-block .vc,
+[data-mode="light"] .github-code-block .vg,
+.light .github-code-block .nv,
+.light .github-code-block .nl,
+.light .github-code-block .no,
+.light .github-code-block .vi,
+.light .github-code-block .vc,
+.light .github-code-block .vg,
+[data-theme="light"] .github-code-block .nv,
+[data-theme="light"] .github-code-block .nl,
+[data-theme="light"] .github-code-block .no,
+[data-theme="light"] .github-code-block .vi,
+[data-theme="light"] .github-code-block .vc,
+[data-theme="light"] .github-code-block .vg { color: #0550ae; }
+
+[data-mode="light"] .github-code-block .o,
+[data-mode="light"] .github-code-block .ow,
+.light .github-code-block .o,
+.light .github-code-block .ow,
+[data-theme="light"] .github-code-block .o,
+[data-theme="light"] .github-code-block .ow { color: #cf222e; }
+
+[data-mode="light"] .github-code-block .p,
+.light .github-code-block .p,
+[data-theme="light"] .github-code-block .p { color: #1f2328; }
+
+[data-mode="light"] .github-code-block .gd,
+.light .github-code-block .gd,
+[data-theme="light"] .github-code-block .gd { color: #82071e; background-color: #ffebe9; }
+
+[data-mode="light"] .github-code-block .gi,
+.light .github-code-block .gi,
+[data-theme="light"] .github-code-block .gi { color: #116329; background-color: #dafbe1; }

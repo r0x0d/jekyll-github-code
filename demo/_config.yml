@@ -1,0 +1,20 @@
+# Jekyll configuration for demo site
+title: Jekyll GitHub Code Demo
+description: A live demo of the jekyll-github-code plugin
+baseurl: "/jekyll-github-code"
+url: "https://r0x0d.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-github-code
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
